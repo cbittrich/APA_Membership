@@ -1,0 +1,103 @@
+﻿
+
+body {
+   font-family: "Roboto", Verdana, Arial, sans-serif;
+   font-size: 100%;
+ background-color: #ECEFF1;    
+}
+
+section {
+   background-color: white;
+   margin: 1em 4em 1em 4em;
+   border: solid 1pt black;
+
+}
+section h3 {
+  color: white;
+  padding: 0.75rem;
+  background-color: #263238; 
+}
+
+.left {
+  float: left;
+  padding: 20px;
+  background-color: #ECEFF1;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  float: right;
+} 
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ECEFF1;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #ECEFF1;
+  color: Black;
+}
+
+/* table formatting */
+
+table caption {
+	background-color: #607D8B; 
+	color: white;
+	text-align: center;
+	border: solid 1pt #607D8B;
+	margin-left: 2em;
+	padding: 0.5em;
+	width: 100%;
+}
+table {
+  margin-right: 2em;
+  margin-left:2em;	
+  width: 50%;
+}
+td{
+	padding-left: 3em;
+	padding-right: 0.5em;
+}
+th{
+	height: 70px;
+	padding-left: 3em;
+	padding-right: 2em;
+}
+
+
+
+
+
+/* form formatting */
+fieldset{
+	padding: 1px 20px 1px 20px;
+	margin: 0em 1em 0.5em 2em;
+}
+
+legend {
+	background-color: #607D8B; 
+	color: white;
+	padding: 0.5em;
+	text-align: center;
+	width: 100%;
+	font-size:1em;
+
+}
+
+input[type=submit]:hover {
+    background-color: #6200EA;
+}
+input[type=search]:hover {
+    background-color: #6200EA;
+}
+
