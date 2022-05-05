@@ -49,13 +49,13 @@ section h3 {
 }
 
 /* table formatting */
-
 table caption {
 	background-color: #607D8B; 
 	color: white;
 	text-align: center;
 	border: solid 1pt #607D8B;
 	margin-left: 2em;
+	
 	padding: 0.5em;
 	width: 100%;
 }
@@ -73,10 +73,6 @@ th{
 	padding-left: 3em;
 	padding-right: 2em;
 }
-
-
-
-
 
 /* form formatting */
 fieldset{

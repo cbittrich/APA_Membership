@@ -84,10 +84,12 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 	$User_BirthMonth = $input_User_BirthMonth;
 	$input_User_BirthYear = trim($_POST["User_BirthYear"]);
 	$User_BirthYear = $input_User_BirthYear;
-	$input_User_EdLevel = trim($_POST["User_User_EdLevel"]);
-	$User_User_EdLevel = $input_User_User_EdLevel;
+	
+	$input_User_EdLevel = trim($_POST["User_EdLevel"]);
+	$User_EdLevel = $input_User_EdLevel;
+	
 	$input_User_MTANumber = trim($_POST["User_MTANumber"]);
-	$User_User_MTANumber = $input_User_MTANumber;
+	$User_MTANumber = $input_User_MTANumber;
     // Check input errors before inserting in database
     if(empty($User_Name_First_err) && empty($User_Name_Last_err) && empty($User_Position_State_err) && empty($User_Position_SSU_err) && empty($User_Position_IsContract_err) && empty($User_Position_HireDate_err) && empty($User_Position_Funding_err) && empty($User_Position_Salary_err) && empty($User_Position_APA_err)){
         // Prepare an update statement
@@ -550,7 +552,7 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Record</title>
+    <title>APA - Update Employee Record:</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -565,179 +567,182 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5">Update Employee: <?php echo $User_Name_First; ?>  <?php echo $User_Name_Last; ?></h2>
-                    <p>Please select the employee termination date value and submit to update the employee record.</p>
+                    <p>Enter data for updating employee position.</p>
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
-                            <label>User_Name_First:</label>
-                            <input type="Text" name="User_Name_First" class="form-control <?php echo (!empty($User_Name_First_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Name_First; ?>">
+                            <label>First Name:</label>
+                            <input type="Text" name="User_Name_First" required class="form-control <?php echo (!empty($User_Name_First_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Name_First; ?>">
                             <span class="invalid-feedback"><?php echo $User_Name_First_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Name_Last:</label>
-                            <input type="Text" name="User_Name_Last" class="form-control <?php echo (!empty($User_Name_Last_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Name_Last; ?>">
+                            <label>Last Name:</label>
+                            <input type="Text" name="User_Name_Last" required class="form-control <?php echo (!empty($User_Name_Last_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Name_Last; ?>">
                             <span class="invalid-feedback"><?php echo $User_Name_Last_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Position_State:</label>
-                            <input type="Text" name="User_Position_State" class="form-control <?php echo (!empty($User_Position_State_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Position_State; ?>">
+                            <label>State Job Title:</label>
+                            <input type="Text" name="User_Position_State" required class="form-control <?php echo (!empty($User_Position_State_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Position_State; ?>">
                             <span class="invalid-feedback"><?php echo $User_Position_State_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Position_SSU:</label>
-                            <input type="Text" name="User_Position_SSU" class="form-control <?php echo (!empty($User_Position_SSU_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Position_SSU; ?>">
+                            <label>Salem State Job Title:</label>
+                            <input type="Text" name="User_Position_SSU" required class="form-control <?php echo (!empty($User_Position_SSU_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Position_SSU; ?>">
                             <span class="invalid-feedback"><?php echo $User_Position_SSU_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Position_IsContract:</label>
-                            <select name="User_Position_IsContract" class="form-control">
-                            <option value="Y"<?php if ($_GET['User_Position_IsContract'] == 'Y') { echo 'selected'; } ?>>Yes</option>">
-							<option value="N"<?php if ($_GET['User_Position_IsContract'] == 'N') { echo 'selected'; } ?>>No</option>">
+                            <label>Is Contract?:</label>
+                            <select name="User_Position_IsContract" required class="form-control">
+							<option value = "" disabled selected>Was a contract offered?</option>							
+                            <option value="Y"<?php if ($User_Position_IsContract == 'Y') { echo 'selected'; } ?>>Yes</option>
+							<option value="N"<?php if ($User_Position_IsContract == 'N') { echo 'selected'; } ?>>No</option>
 							</select>
 							<span class="invalid-feedback"><?php echo $User_Position_IsContract_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Position_HireDate:</label>
-                            <input type="Date" name="User_Position_HireDate" class="form-control <?php echo (!empty($User_Position_HireDate_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Position_HireDate; ?>">
+                            <label>Hire Date:</label>
+                            <input type="Date" name="User_Position_HireDate" required class="form-control <?php echo (!empty($User_Position_HireDate_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Position_HireDate; ?>">
                             <span class="invalid-feedback"><?php echo $User_Position_HireDate_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Position_Funding:</label>
-                            <select name="User_Position_Funding" class="form-control">
-								<option value="State Appropriated"<?php if ($_GET['User_Position_Funding'] == 'State Appropriated') { echo 'selected'; } ?>>State Appropriated</option>
-								<option value="Trust Fund"<?php if ($_GET['User_Position_Funding'] == 'Trust Fund') { echo 'selected'; } ?>>Trust Fund</option>
-								<option value="Federal Grant"<?php if ($_GET['User_Position_Funding'] == 'Federal Grant') { echo 'selected'; } ?>>Federal Grant</option>
-								<option value="Other"<?php if ($_GET['User_Position_Funding'] == 'Other') { echo 'selected'; } ?>>Other</option>
+                            <label>Position Funding:</label>
+                            <select name="User_Position_Funding" required class="form-control">
+								<option value = "" disabled selected>Select Funding Source</option>
+								<option value="Trust Fund"<?php if ($User_Position_Funding == 'Trust Fund') { echo 'selected'; } ?>>Trust Fund</option>
+								<option value="State Appropriated"<?php if ($User_Position_Funding == 'State Appropriated') { echo 'selected'; } ?>>State Appropriated</option>
+								<option value="Federal Grant"<?php if ($User_Position_Funding == 'Federal Grant') { echo 'selected'; } ?>>Federal Grant</option>
+								<option value="Other"<?php if ($User_Position_Funding == 'Other') { echo 'selected'; } ?>>Other</option>
 								</select>
 							<span class="invalid-feedback"><?php echo $User_Position_Funding_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Position_Salary:</label>
-                            <input type="Text" name="User_Position_Salary" class="form-control <?php echo (!empty($User_Position_Salary_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Position_Salary; ?>">
+                            <label>Position Salary:</label>
+                            <input type="Currency" name="User_Position_Salary" required class="form-control <?php echo (!empty($User_Position_Salary_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Position_Salary; ?>">
                             <span class="invalid-feedback"><?php echo $User_Position_Salary_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Position_APA:</label>
-                            <select name="User_Position_APA" class="form-control">
-								<option value="Staff Assistant"<?php if ($_GET['User_Position_APA'] == 'Staff Assistant') { echo 'selected'; } ?>>Staff Assistant</option>
-								<option value="Staff Associate"<?php if ($_GET['User_Position_APA'] == 'Staff Associate') { echo 'selected'; } ?>>Staff Associate</option>
-								<option value="Assistant Director"<?php if ($_GET['User_Position_APA'] == 'Assistant Director') { echo 'selected'; } ?>>Assistant Director</option>
-								<option value="Associate Director"<?php if ($_GET['User_Position_APA'] == 'Associate Director') { echo 'selected'; } ?>>Associate Director</option>
-								<option value="Assistant Dean"<?php if ($_GET['User_Position_APA'] == 'Assistant Dean') { echo 'selected'; } ?>>Assistant Dean</option>  
-								<option value="Director"<?php if ($_GET['User_Position_APA'] == 'Director') { echo 'selected'; } ?>>Director</option>
-								<option value="Executive Director"<?php if ($_GET['User_Position_APA'] == 'Executive Director') { echo 'selected'; } ?>>Executive Director</option>
-								<option value="Acting Position"<?php if ($_GET['User_Position_APA'] == 'Acting Position') { echo 'selected'; } ?>>Acting Position</option>
+                            <label>Union Position (APA):</label>
+                            <select name="User_Position_APA" required class="form-control">
+								<option value = "" disabled selected>Select Union Position Level</option>
+								<option value="Staff Assistant"<?php if ($User_Position_APA == 'Staff Assistant') { echo 'selected'; } ?>>Staff Assistant</option>
+								<option value="Staff Associate"<?php if ($User_Position_APA == 'Staff Associate') { echo 'selected'; } ?>>Staff Associate</option>
+								<option value="Assistant Director"<?php if ($User_Position_APA == 'Assistant Director') { echo 'selected'; } ?>>Assistant Director</option>
+								<option value="Associate Director"<?php if ($User_Position_APA == 'Associate Director') { echo 'selected'; } ?>>Associate Director</option>
+								<option value="Assistant Dean"<?php if ($User_Position_APA == 'Assistant Dean') { echo 'selected'; } ?>>Assistant Dean</option>  
+								<option value="Director"<?php if ($User_Position_APA == 'Director') { echo 'selected'; } ?>>Director</option>
+								<option value="Executive Director"<?php if ($User_Position_APA == 'Executive Director') { echo 'selected'; } ?>>Executive Director</option>
+								<option value="Acting Position"<?php if ($User_Position_APA == 'Acting Position') { echo 'selected'; } ?>>Acting Position</option>
 								</select>
 							<span class="invalid-feedback"><?php echo $User_Position_APA_err;?></span>
                         </div>
 						<div class="form-group">
-                            <label>User_Ethnicity:</label>
+                            <label>Ethnicity:</label>
                             <select name="User_Ethnicity" class="form-control">
-							<option value = ""<?php if ($_GET['User_Ethnicity'] == '') { echo 'selected'; } ?>>Unknown</option>
-							<option value = "Hispanic"<?php if ($_GET['User_Ethnicity'] == 'Hispanic') { echo 'selected'; } ?>>Hispanic</option>
-							<option value = "Not Hispanic"<?php if ($_GET['User_Ethnicity'] == 'Not Hispanic') { echo 'selected'; } ?>>Not Hispanic</option>
+							<option value = "" disabled selected>Select Ethnicity</option>
+							<option value = "Hispanic"<?php if ($User_Ethnicity == 'Hispanic') { echo 'selected'; } ?>>Hispanic</option>
+							<option value = "Not Hispanic"<?php if ($User_Ethnicity == 'Not Hispanic') { echo 'selected'; } ?>>Not Hispanic</option>
 							</select>
                         </div>
 						<div class="form-group">
-                            <label>User_BirthMonth:</label>
+                            <label>Birth Month:</label>
                             <select name="User_BirthMonth" class="form-control">
-							<option value = ""<?php if ($_GET['User_BirthMonth'] == '') { echo 'selected'; } ?>>Unknown</option>
-							<option value = "01"<?php if ($_GET['User_BirthMonth'] == '01') { echo 'selected'; } ?>>01</option>
-							<option value = "02"<?php if ($_GET['User_BirthMonth'] == '02') { echo 'selected'; } ?>>02</option>
-							<option value = "03"<?php if ($_GET['User_BirthMonth'] == '03') { echo 'selected'; } ?>>03</option>
-							<option value = "04"<?php if ($_GET['User_BirthMonth'] == '04') { echo 'selected'; } ?>>04</option>
-							<option value = "05"<?php if ($_GET['User_BirthMonth'] == '05') { echo 'selected'; } ?>>05</option>
-							<option value = "06"<?php if ($_GET['User_BirthMonth'] == '06') { echo 'selected'; } ?>>06</option>
-							<option value = "07"<?php if ($_GET['User_BirthMonth'] == '07') { echo 'selected'; } ?>>07</option>
-							<option value = "08"<?php if ($_GET['User_BirthMonth'] == '08') { echo 'selected'; } ?>>08</option>
-							<option value = "09"<?php if ($_GET['User_BirthMonth'] == '09') { echo 'selected'; } ?>>09</option>
-							<option value = "10"<?php if ($_GET['User_BirthMonth'] == '10') { echo 'selected'; } ?>>10</option>
-							<option value = "11"<?php if ($_GET['User_BirthMonth'] == '11') { echo 'selected'; } ?>>11</option>
-							<option value = "12"<?php if ($_GET['User_BirthMonth'] == '12') { echo 'selected'; } ?>>12</option>
+							<option value = "" disabled selected>Employee Birth month?</option>
+							<option value = "01"<?php if ($User_BirthMonth == '01') { echo 'selected'; } ?>>01</option>
+							<option value = "02"<?php if ($User_BirthMonth == '02') { echo 'selected'; } ?>>02</option>
+							<option value = "03"<?php if ($User_BirthMonth == '03') { echo 'selected'; } ?>>03</option>
+							<option value = "04"<?php if ($User_BirthMonth == '04') { echo 'selected'; } ?>>04</option>
+							<option value = "05"<?php if ($User_BirthMonth == '05') { echo 'selected'; } ?>>05</option>
+							<option value = "06"<?php if ($User_BirthMonth == '06') { echo 'selected'; } ?>>06</option>
+							<option value = "07"<?php if ($User_BirthMonth == '07') { echo 'selected'; } ?>>07</option>
+							<option value = "08"<?php if ($User_BirthMonth == '08') { echo 'selected'; } ?>>08</option>
+							<option value = "09"<?php if ($User_BirthMonth == '09') { echo 'selected'; } ?>>09</option>
+							<option value = "10"<?php if ($User_BirthMonth == '10') { echo 'selected'; } ?>>10</option>
+							<option value = "11"<?php if ($User_BirthMonth == '11') { echo 'selected'; } ?>>11</option>
+							<option value = "12"<?php if ($User_BirthMonth == '12') { echo 'selected'; } ?>>12</option>
 							</select>
 
                         </div>
 						<div class="form-group">
-                            <label>User_BirthYear:</label>
+                            <label>Birth Year:</label>
                             <select name="User_BirthYear" class="form-control">
-							<option value = ""<?php if ($_GET['User_BirthYear'] == '') { echo 'selected'; } ?>>Unknown</option>
-							<option value = "1945"<?php if ($_GET['User_BirthYear'] == '1945') { echo 'selected'; } ?>>1945</option>
-							<option value = "1946"<?php if ($_GET['User_BirthYear'] == '1946') { echo 'selected'; } ?>>1946</option>
-							<option value = "1947"<?php if ($_GET['User_BirthYear'] == '1947') { echo 'selected'; } ?>>1947</option>
-							<option value = "1948"<?php if ($_GET['User_BirthYear'] == '1948') { echo 'selected'; } ?>>1948</option>
-							<option value = "1949"<?php if ($_GET['User_BirthYear'] == '1949') { echo 'selected'; } ?>>1949</option>
-							<option value = "1950"<?php if ($_GET['User_BirthYear'] == '1950') { echo 'selected'; } ?>>1950</option>
-							<option value = "1951"<?php if ($_GET['User_BirthYear'] == '1951') { echo 'selected'; } ?>>1951</option>
-							<option value = "1952"<?php if ($_GET['User_BirthYear'] == '1952') { echo 'selected'; } ?>>1952</option>
-							<option value = "1953"<?php if ($_GET['User_BirthYear'] == '1953') { echo 'selected'; } ?>>1953</option>
-							<option value = "1954"<?php if ($_GET['User_BirthYear'] == '1954') { echo 'selected'; } ?>>1954</option>
-							<option value = "1955"<?php if ($_GET['User_BirthYear'] == '1955') { echo 'selected'; } ?>>1955</option>
-							<option value = "1956"<?php if ($_GET['User_BirthYear'] == '1956') { echo 'selected'; } ?>>1956</option>
-							<option value = "1957"<?php if ($_GET['User_BirthYear'] == '1957') { echo 'selected'; } ?>>1957</option>
-							<option value = "1958"<?php if ($_GET['User_BirthYear'] == '1958') { echo 'selected'; } ?>>1958</option>
-							<option value = "1959"<?php if ($_GET['User_BirthYear'] == '1959') { echo 'selected'; } ?>>1959</option>
-							<option value = "1960"<?php if ($_GET['User_BirthYear'] == '1960') { echo 'selected'; } ?>>1960</option>
-							<option value = "1961"<?php if ($_GET['User_BirthYear'] == '1961') { echo 'selected'; } ?>>1961</option>
-							<option value = "1962"<?php if ($_GET['User_BirthYear'] == '1962') { echo 'selected'; } ?>>1962</option>
-							<option value = "1963"<?php if ($_GET['User_BirthYear'] == '1963') { echo 'selected'; } ?>>1963</option>
-							<option value = "1964"<?php if ($_GET['User_BirthYear'] == '1964') { echo 'selected'; } ?>>1964</option>
-							<option value = "1965"<?php if ($_GET['User_BirthYear'] == '1965') { echo 'selected'; } ?>>1965</option>
-							<option value = "1966"<?php if ($_GET['User_BirthYear'] == '1966') { echo 'selected'; } ?>>1966</option>
-							<option value = "1967"<?php if ($_GET['User_BirthYear'] == '1967') { echo 'selected'; } ?>>1967</option>
-							<option value = "1968"<?php if ($_GET['User_BirthYear'] == '1968') { echo 'selected'; } ?>>1968</option>
-							<option value = "1969"<?php if ($_GET['User_BirthYear'] == '1969') { echo 'selected'; } ?>>1969</option>
-							<option value = "1970"<?php if ($_GET['User_BirthYear'] == '1970') { echo 'selected'; } ?>>1970</option>
-							<option value = "1971"<?php if ($_GET['User_BirthYear'] == '1971') { echo 'selected'; } ?>>1971</option>
-							<option value = "1972"<?php if ($_GET['User_BirthYear'] == '1972') { echo 'selected'; } ?>>1972</option>
-							<option value = "1973"<?php if ($_GET['User_BirthYear'] == '1973') { echo 'selected'; } ?>>1973</option>
-							<option value = "1974"<?php if ($_GET['User_BirthYear'] == '1974') { echo 'selected'; } ?>>1974</option>
-							<option value = "1975"<?php if ($_GET['User_BirthYear'] == '1975') { echo 'selected'; } ?>>1975</option>
-							<option value = "1976"<?php if ($_GET['User_BirthYear'] == '1976') { echo 'selected'; } ?>>1976</option>
-							<option value = "1977"<?php if ($_GET['User_BirthYear'] == '1977') { echo 'selected'; } ?>>1977</option>
-							<option value = "1978"<?php if ($_GET['User_BirthYear'] == '1978') { echo 'selected'; } ?>>1978</option>
-							<option value = "1979"<?php if ($_GET['User_BirthYear'] == '1979') { echo 'selected'; } ?>>1979</option>
-							<option value = "1980"<?php if ($_GET['User_BirthYear'] == '1980') { echo 'selected'; } ?>>1980</option>
-							<option value = "1981"<?php if ($_GET['User_BirthYear'] == '1981') { echo 'selected'; } ?>>1981</option>
-							<option value = "1982"<?php if ($_GET['User_BirthYear'] == '1982') { echo 'selected'; } ?>>1982</option>
-							<option value = "1983"<?php if ($_GET['User_BirthYear'] == '1983') { echo 'selected'; } ?>>1983</option>
-							<option value = "1984"<?php if ($_GET['User_BirthYear'] == '1984') { echo 'selected'; } ?>>1984</option>
-							<option value = "1985"<?php if ($_GET['User_BirthYear'] == '1985') { echo 'selected'; } ?>>1985</option>
-							<option value = "1986"<?php if ($_GET['User_BirthYear'] == '1986') { echo 'selected'; } ?>>1986</option>
-							<option value = "1987"<?php if ($_GET['User_BirthYear'] == '1987') { echo 'selected'; } ?>>1987</option>
-							<option value = "1988"<?php if ($_GET['User_BirthYear'] == '1988') { echo 'selected'; } ?>>1988</option>
-							<option value = "1989"<?php if ($_GET['User_BirthYear'] == '1989') { echo 'selected'; } ?>>1989</option>
-							<option value = "1990"<?php if ($_GET['User_BirthYear'] == '1990') { echo 'selected'; } ?>>1990</option>
-							<option value = "1991"<?php if ($_GET['User_BirthYear'] == '1991') { echo 'selected'; } ?>>1991</option>
-							<option value = "1992"<?php if ($_GET['User_BirthYear'] == '1992') { echo 'selected'; } ?>>1992</option>
-							<option value = "1993"<?php if ($_GET['User_BirthYear'] == '1993') { echo 'selected'; } ?>>1993</option>
-							<option value = "1994"<?php if ($_GET['User_BirthYear'] == '1994') { echo 'selected'; } ?>>1994</option>
-							<option value = "1995"<?php if ($_GET['User_BirthYear'] == '1995') { echo 'selected'; } ?>>1995</option>
-							<option value = "1996"<?php if ($_GET['User_BirthYear'] == '1996') { echo 'selected'; } ?>>1996</option>
-							<option value = "1997"<?php if ($_GET['User_BirthYear'] == '1997') { echo 'selected'; } ?>>1997</option>
-							<option value = "1998"<?php if ($_GET['User_BirthYear'] == '1998') { echo 'selected'; } ?>>1998</option>
-							<option value = "1999"<?php if ($_GET['User_BirthYear'] == '1999') { echo 'selected'; } ?>>1999</option>
-							<option value = "2000"<?php if ($_GET['User_BirthYear'] == '2000') { echo 'selected'; } ?>>2000</option>
-							<option value = "2001"<?php if ($_GET['User_BirthYear'] == '2001') { echo 'selected'; } ?>>2001</option>
-							<option value = "2002"<?php if ($_GET['User_BirthYear'] == '2002') { echo 'selected'; } ?>>2002</option>
-							<option value = "2003"<?php if ($_GET['User_BirthYear'] == '2003') { echo 'selected'; } ?>>2003</option>
-							<option value = "2004"<?php if ($_GET['User_BirthYear'] == '2004') { echo 'selected'; } ?>>2004</option>
-							<option value = "2005"<?php if ($_GET['User_BirthYear'] == '2005') { echo 'selected'; } ?>>2005</option>
+							<option value = "" disabled selected>Employee Birth day?</option>
+							<option value = "1945"<?php if ($User_BirthYear == '1945') { echo 'selected'; } ?>>1945</option>
+							<option value = "1946"<?php if ($User_BirthYear == '1946') { echo 'selected'; } ?>>1946</option>
+							<option value = "1947"<?php if ($User_BirthYear == '1947') { echo 'selected'; } ?>>1947</option>
+							<option value = "1948"<?php if ($User_BirthYear == '1948') { echo 'selected'; } ?>>1948</option>
+							<option value = "1949"<?php if ($User_BirthYear == '1949') { echo 'selected'; } ?>>1949</option>
+							<option value = "1950"<?php if ($User_BirthYear == '1950') { echo 'selected'; } ?>>1950</option>
+							<option value = "1951"<?php if ($User_BirthYear == '1951') { echo 'selected'; } ?>>1951</option>
+							<option value = "1952"<?php if ($User_BirthYear == '1952') { echo 'selected'; } ?>>1952</option>
+							<option value = "1953"<?php if ($User_BirthYear == '1953') { echo 'selected'; } ?>>1953</option>
+							<option value = "1954"<?php if ($User_BirthYear == '1954') { echo 'selected'; } ?>>1954</option>
+							<option value = "1955"<?php if ($User_BirthYear == '1955') { echo 'selected'; } ?>>1955</option>
+							<option value = "1956"<?php if ($User_BirthYear == '1956') { echo 'selected'; } ?>>1956</option>
+							<option value = "1957"<?php if ($User_BirthYear == '1957') { echo 'selected'; } ?>>1957</option>
+							<option value = "1958"<?php if ($User_BirthYear == '1958') { echo 'selected'; } ?>>1958</option>
+							<option value = "1959"<?php if ($User_BirthYear == '1959') { echo 'selected'; } ?>>1959</option>
+							<option value = "1960"<?php if ($User_BirthYear == '1960') { echo 'selected'; } ?>>1960</option>
+							<option value = "1961"<?php if ($User_BirthYear == '1961') { echo 'selected'; } ?>>1961</option>
+							<option value = "1962"<?php if ($User_BirthYear == '1962') { echo 'selected'; } ?>>1962</option>
+							<option value = "1963"<?php if ($User_BirthYear == '1963') { echo 'selected'; } ?>>1963</option>
+							<option value = "1964"<?php if ($User_BirthYear == '1964') { echo 'selected'; } ?>>1964</option>
+							<option value = "1965"<?php if ($User_BirthYear == '1965') { echo 'selected'; } ?>>1965</option>
+							<option value = "1966"<?php if ($User_BirthYear == '1966') { echo 'selected'; } ?>>1966</option>
+							<option value = "1967"<?php if ($User_BirthYear == '1967') { echo 'selected'; } ?>>1967</option>
+							<option value = "1968"<?php if ($User_BirthYear == '1968') { echo 'selected'; } ?>>1968</option>
+							<option value = "1969"<?php if ($User_BirthYear == '1969') { echo 'selected'; } ?>>1969</option>
+							<option value = "1970"<?php if ($User_BirthYear == '1970') { echo 'selected'; } ?>>1970</option>
+							<option value = "1971"<?php if ($User_BirthYear == '1971') { echo 'selected'; } ?>>1971</option>
+							<option value = "1972"<?php if ($User_BirthYear == '1972') { echo 'selected'; } ?>>1972</option>
+							<option value = "1973"<?php if ($User_BirthYear == '1973') { echo 'selected'; } ?>>1973</option>
+							<option value = "1974"<?php if ($User_BirthYear == '1974') { echo 'selected'; } ?>>1974</option>
+							<option value = "1975"<?php if ($User_BirthYear == '1975') { echo 'selected'; } ?>>1975</option>
+							<option value = "1976"<?php if ($User_BirthYear == '1976') { echo 'selected'; } ?>>1976</option>
+							<option value = "1977"<?php if ($User_BirthYear == '1977') { echo 'selected'; } ?>>1977</option>
+							<option value = "1978"<?php if ($User_BirthYear == '1978') { echo 'selected'; } ?>>1978</option>
+							<option value = "1979"<?php if ($User_BirthYear == '1979') { echo 'selected'; } ?>>1979</option>
+							<option value = "1980"<?php if ($User_BirthYear == '1980') { echo 'selected'; } ?>>1980</option>
+							<option value = "1981"<?php if ($User_BirthYear == '1981') { echo 'selected'; } ?>>1981</option>
+							<option value = "1982"<?php if ($User_BirthYear == '1982') { echo 'selected'; } ?>>1982</option>
+							<option value = "1983"<?php if ($User_BirthYear == '1983') { echo 'selected'; } ?>>1983</option>
+							<option value = "1984"<?php if ($User_BirthYear == '1984') { echo 'selected'; } ?>>1984</option>
+							<option value = "1985"<?php if ($User_BirthYear == '1985') { echo 'selected'; } ?>>1985</option>
+							<option value = "1986"<?php if ($User_BirthYear == '1986') { echo 'selected'; } ?>>1986</option>
+							<option value = "1987"<?php if ($User_BirthYear == '1987') { echo 'selected'; } ?>>1987</option>
+							<option value = "1988"<?php if ($User_BirthYear == '1988') { echo 'selected'; } ?>>1988</option>
+							<option value = "1989"<?php if ($User_BirthYear == '1989') { echo 'selected'; } ?>>1989</option>
+							<option value = "1990"<?php if ($User_BirthYear == '1990') { echo 'selected'; } ?>>1990</option>
+							<option value = "1991"<?php if ($User_BirthYear == '1991') { echo 'selected'; } ?>>1991</option>
+							<option value = "1992"<?php if ($User_BirthYear == '1992') { echo 'selected'; } ?>>1992</option>
+							<option value = "1993"<?php if ($User_BirthYear == '1993') { echo 'selected'; } ?>>1993</option>
+							<option value = "1994"<?php if ($User_BirthYear == '1994') { echo 'selected'; } ?>>1994</option>
+							<option value = "1995"<?php if ($User_BirthYear == '1995') { echo 'selected'; } ?>>1995</option>
+							<option value = "1996"<?php if ($User_BirthYear == '1996') { echo 'selected'; } ?>>1996</option>
+							<option value = "1997"<?php if ($User_BirthYear == '1997') { echo 'selected'; } ?>>1997</option>
+							<option value = "1998"<?php if ($User_BirthYear == '1998') { echo 'selected'; } ?>>1998</option>
+							<option value = "1999"<?php if ($User_BirthYear == '1999') { echo 'selected'; } ?>>1999</option>
+							<option value = "2000"<?php if ($User_BirthYear == '2000') { echo 'selected'; } ?>>2000</option>
+							<option value = "2001"<?php if ($User_BirthYear == '2001') { echo 'selected'; } ?>>2001</option>
+							<option value = "2002"<?php if ($User_BirthYear == '2002') { echo 'selected'; } ?>>2002</option>
+							<option value = "2003"<?php if ($User_BirthYear == '2003') { echo 'selected'; } ?>>2003</option>
+							<option value = "2004"<?php if ($User_BirthYear == '2004') { echo 'selected'; } ?>>2004</option>
+							<option value = "2005"<?php if ($User_BirthYear == '2005') { echo 'selected'; } ?>>2005</option>
 							</select>
                         </div>
 						<div class="form-group">
-                            <label>User_EdLevel:</label>
+                            <label>Education Level:</label>
                             <select name="User_EdLevel" class="form-control">
-							<option value = ""<?php if ($_GET['User_EdLevel'] == '') { echo 'selected'; } ?>>Unknown</option>
-							<option value = "High School Diploma"<?php if ($_GET['User_EdLevel'] == 'High School Diploma') { echo 'selected'; } ?>>High School Diploma</option>
-							<option value = "Associate's Degree"<?php if ($_GET['User_EdLevel'] == 'Associate Degree') { echo 'selected'; } ?>>Associate's Degree</option>
-							<option value = "Certification"<?php if ($_GET['User_EdLevel'] == 'Certification') { echo 'selected'; } ?>>Certification</option>
-							<option value = "Bachelor's Degree"<?php if ($_GET['User_EdLevel'] == 'Bachelor Degree') { echo 'selected'; } ?>>Bachelor's Degree</option>
-							<option value = "Master's Degree"<?php if ($_GET['User_EdLevel'] == 'Master Degree') { echo 'selected'; } ?>>Master's Degree</option>
-							<option value = "Doctorate Degree"<?php if ($_GET['User_EdLevel'] == 'Doctorate Degree') { echo 'selected'; } ?>>Doctorate Degree</option>
+							<option value = "" disabled selected>Highest Awarded Degree/Certificate?</option>							
+							<option value = "High School Diploma"<?php if ($User_EdLevel == 'High School Diploma') { echo 'selected'; } ?>>High School Diploma</option>
+							<option value = "Associate Degree"<?php if ($User_EdLevel == 'Associate Degree') { echo 'selected'; } ?>>Associate's Degree</option>
+							<option value = "Certification"<?php if ($User_EdLevel == 'Certification') { echo 'selected'; } ?>>Certification</option>
+							<option value = "Bachelor Degree"<?php if ($User_EdLevel == 'Bachelor Degree') { echo 'selected'; } ?>>Bachelor's Degree</option>
+							<option value = "Master Degree"<?php if ($User_EdLevel == 'Master Degree') { echo 'selected'; } ?>>Master's Degree</option>
+							<option value = "Doctorate Degree"<?php if ($User_EdLevel == 'Doctorate Degree') { echo 'selected'; } ?>>Doctorate Degree</option>
 							</select>
 						</div>
 						<div class="form-group">
-                            <label>User_MTANumber:</label>
-                            <input type="Text" name="User_MTANumber" class="form-control" value="<?php echo $User_MTANumber; ?>">
+                            <label>MTANumber:</label>
+                            <input type="Text" name="User_MTANumber" pattern="[0-9]{8}" class="form-control" value="<?php echo $User_MTANumber; ?>">
 
                         </div>
                         <input type="hidden" name="id" value="<?php echo $id; ?>"/>

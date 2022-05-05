@@ -10,6 +10,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 ?>
 
 <!DOCTYPE html>
+
+    <title>APA - View Membership Roster</title>
 <link rel="stylesheet" href="MembershipRoster.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -309,15 +311,12 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
   </div>	
 </head>
 <body>
-    <!--<div class="wrapper">
+    <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
 				
-                    <div class="mt-5 mb-3 clearfix">
-                        <h2 class="pull-left">Employees Details</h2>
-                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
-                    </div>-->
+       
 					
                     <?php
                     // Include config file
@@ -335,17 +334,17 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
                         if(mysqli_num_rows($result) > 0){
                             
 							
+							echo "<br><br><center><h1>Member Status List:</h1>";							
 							
-							
-							echo '<table class="table table-bordered table-striped">';
+							echo '<table style="width:auto" class="table table-bordered table-striped center">';
                                 echo "<thead>";
                                     echo "<tr>";
                                         echo "<th>#:</th>";
-                                        echo "<th>User_ID:</th>";
-                                        echo "<th>User_Name_First:</th>";
-                                        echo "<th>User_Name_Last:</th>";
-                                        echo "<th>User_Status_Current</th>";
-										echo "<th>User_Status_Effdt</th>";
+                                        echo "<th>Username:</th>";
+                                        echo "<th>First Name:</th>";
+                                        echo "<th>Last Name:</th>";
+                                        echo "<th>Current Membership Status:</th>";
+										echo "<th>Effective Date:</th>";
 										echo "<th>Action</th>";
                                     echo "</tr>";
                                 echo "</thead>";
@@ -366,7 +365,7 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            
-                            echo "</table>";
+                            echo "</table></center>";
                             // Free result set
                             mysqli_free_result($result);
                         } else{
@@ -379,10 +378,10 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
                     // Close connection
                     mysqli_close($link);
                     ?>
-            <!--    </div>
+            </div>
             </div>       
         </div>
-    </div> -->
+    </div>
 
 </body>
 </html>

@@ -2,127 +2,79 @@
 // Initialize the session
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
+// Check if the user is logged in, otherwise redirect to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: Login.php");
     exit;
 }
-?>
-
-<?php
+ 
 // Include config file
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$User_Status_Current = "";
-$User_Status_Current_err = "";
+$new_password = $confirm_password = "";
+$new_password_err = $confirm_password_err = "";
+ 
 // Processing form data when form is submitted
-if(isset($_POST["id"]) && !empty($_POST["id"])){
-    // Get hidden input value
-    $id = $_POST["id"];
-    
-
-    
-    // Validate User_Status_Current User_Status_Current
-    $input_User_Status_Current = trim($_POST["User_Status_Current"]);
-    if(empty($input_User_Status_Current)){
-        $User_Status_Current_err = "Please enter an User_Status_Current.";     
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Validate new password
+    if(empty(trim($_POST["new_password"]))){
+        $new_password_err = "Please enter the new password.";     
+    } elseif(strlen(trim($_POST["new_password"])) < 6){
+        $new_password_err = "Password must have atleast 6 characters.";
     } else{
-        $User_Status_Current = $input_User_Status_Current;
+        $new_password = trim($_POST["new_password"]);
     }
     
-
-    
-    // Check input errors before inserting in database
-    if(empty($User_Status_Current_err)){
+    // Validate confirm password
+    if(empty(trim($_POST["confirm_password"]))){
+        $confirm_password_err = "Please confirm the password.";
+    } else{
+        $confirm_password = trim($_POST["confirm_password"]);
+        if(empty($new_password_err) && ($new_password != $confirm_password)){
+            $confirm_password_err = "Password did not match.";
+        }
+    }
+        
+    // Check input errors before updating the database
+    if(empty($new_password_err) && empty($confirm_password_err)){
         // Prepare an update statement
-        $sql = "UPDATE User_Status SET User_status_Effdt=now(), User_status_Current=? WHERE id=?";
-         
+        $sql = "UPDATE User_Password SET user_password = ? WHERE id = ?";
+        
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "si",  $param_User_Status_Current, $param_id);
+            mysqli_stmt_bind_param($stmt, "si", $param_password, $param_id);
             
             // Set parameters
-            $param_User_Status_Current = $User_Status_Current;
-
-            $param_id = $id;
+            $param_password = password_hash($new_password, PASSWORD_DEFAULT);
+            $param_id = $_SESSION["id"];
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                // Records updated successfully. Redirect to landing page
-                header("location: ViewMembershipRoster.php");
+                // Password updated successfully. Destroy the session, and redirect to login page
+                session_destroy();
+                header("location: Login.php");
                 exit();
             } else{
-                echo "1st Oops! Something went wrong. Please try again later.";
-
+                echo "Oops! Something went wrong. Please try again later.";
             }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
         }
-         
-        // Close statement
-        mysqli_stmt_close($stmt);
     }
     
     // Close connection
     mysqli_close($link);
-} else{
-    // Check existence of id parameter before processing further
-    if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-        // Get URL parameter
-        $id =  trim($_GET["id"]);
-        
-        // Prepare a select statement
-        $sql = "SELECT * FROM User_Status_Current WHERE id = ?";
-        if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "i", $param_id);
-            
-            // Set parameters
-            $param_id = $id;
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                $result = mysqli_stmt_get_result($stmt);
-    
-                if(mysqli_num_rows($result) == 1){
-                    /* Fetch result row as an associative array. Since the result set
-                    contains only one row, we don't need to use while loop */
-                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                    
-                    // Retrieve individual field value
-                    $firstname = $row["User_Name_First"];
-					$lastname = $row["User_Name_Last"];
-                    $User_Status_Current = $row["User_Status_Current"];
-                } else{
-                    // URL doesn't contain valid id. Redirect to error page
-                    header("location: error.php");
-                    exit();
-                }
-                
-            } else{
-                echo "2nd Oops! Something went wrong. Please try again later.";
-            }
-        }
-        
-        // Close statement
-        mysqli_stmt_close($stmt);
-        
-        // Close connection
-        mysqli_close($link);
-    }  else{
-        // URL doesn't contain id parameter. Redirect to error page
-        header("location: error.php");
-        exit();
-    }
 }
 ?>
  
 <!DOCTYPE html>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>APA - Update Membership Status </title>
+    <title>APA - Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -130,7 +82,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             margin: 0 auto;
         }
     </style>
-</head>
+</head> 
 <link rel="stylesheet" href="MembershipRoster.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -148,10 +100,10 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 
 } else
 {
-echo "<a class=active href=WelcomeAdmin.php>Admin</a>";
+echo "<a href=WelcomeAdmin.php>Admin</a>";
 }; ?>
 	<a href="Welcome.php">Home</a>
-<a href="Profile.php?id=<?php echo htmlspecialchars($_SESSION["id"]); ?>" class="mr-3" title="Profile" data-toggle="tooltip">Profile</a>
+<a class=Active href="Profile.php?id=<?php echo htmlspecialchars($_SESSION["id"]); ?>" class="mr-3" title="Profile" data-toggle="tooltip">Profile</a>
 	<a href="Contact.php">Contact</a>
 	<a href="logout.php">Sign Out</a>
 	
@@ -433,44 +385,33 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
   </div>
 
   </div>	
-</head>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>APA - Update Membership Status</title>
+    <title>Reset Password</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .wrapper{
-            width: 600px;
-            margin: 0 auto;
-        }
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 360px; padding: 20px; }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="mt-5">Update Membership Status: <?php echo $firstname; ?> <?php echo $lastname; ?>?</h2>
-                    <p>Please select the membership status value and submit to update the membership record.</p>
-                    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
-                        <div class="form-group">
-                            <label>Current Membership Status:</label>
-                            <select name="User_Status_Current" class="form-control <?php echo (!empty($User_Status_Current_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Status_Current; ?>">
-                            <option value="New-Prospect"<?php if ($User_status_Current == 'New-Prospect') { echo 'selected'; } ?>>New-Prospect</option>
-								<option value="Considering"<?php if ($User_status_Current == 'Considering') { echo 'selected'; } ?>>Considering</option>
-								<option value="Declined"<?php if ($User_status_Current == 'Declined') { echo 'selected'; } ?>>Declined</option>
-								<option value="Member"<?php if ($User_status_Current == 'Member') { echo 'selected'; } ?>>Member</option>
-								<option value="Withdrawn"<?php if ($User_status_Current == 'Withdrawn') { echo 'selected'; } ?>>Withdrawn</option>
-								</select>
-                        </div>
-                        <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="ViewMembershipRoster.php" class="btn btn-secondary ml-2">Cancel</a>
-                    </form>
-                </div>
-            </div>        
-        </div>
-    </div>
+        <h2>Reset Password</h2>
+        <p>Please fill out this form to reset your password.</p>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" name="new_password" class="form-control <?php echo (!empty($new_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $new_password; ?>">
+                <span class="invalid-feedback"><?php echo $new_password_err; ?></span>
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>">
+                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <a class="btn btn-link ml-2" href="Welcome.php">Cancel</a>
+            </div>
+        </form>
+    </div>    
 </body>
 </html>

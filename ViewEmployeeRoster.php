@@ -10,6 +10,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 ?>
 
 <!DOCTYPE html>
+
+ <title>APA - View Employee Roster</title>
 <link rel="stylesheet" href="MembershipRoster.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -328,25 +330,25 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 									User_id,
 									User_Name_First, 
 									User_Name_Last, 
-									User_Status_Current, 
-									User_Status_Effdt 
-							FROM `User_Status_Current`";
+									User_Position_APA, 
+									User_Effdt 
+							FROM `User`";
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                             
 							
+							echo "<br><br><center><h1>Employee List:</h1>";							
 							
-							
-							echo '<table class="table table-bordered table-striped">';
+							echo '<table style="width:auto" class="table table-bordered table-striped center">';
                                 echo "<thead>";
                                     echo "<tr>";
                                         echo "<th>#:</th>";
-                                        echo "<th>User_ID:</th>";
-                                        echo "<th>User_Name_First:</th>";
-                                        echo "<th>User_Name_Last:</th>";
-                                        echo "<th>User_Status_Current</th>";
-										echo "<th>User_Status_Effdt</th>";
-										echo "<th>Action</th>";
+                                        echo "<th>Username:</th>";
+                                        echo "<th>First Name:</th>";
+                                        echo "<th>Last Name:</th>";
+                                        echo "<th>APA Position:</th>";
+										echo "<th>Effective Date:</th>";
+										echo "<th>Action:</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -356,18 +358,18 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
                                         echo "<td>" . $row['User_id'] . "</td>";
                                         echo "<td>" . $row['User_Name_First'] . "</td>";
                                         echo "<td>" . $row['User_Name_Last'] . "</td>";
-                                        echo "<td>" . $row['User_Status_Current'] . "</td>";
-                                        echo "<td>" . $row['User_Status_Effdt'] . "</td>";
+                                        echo "<td>" . $row['User_Position_APA'] . "</td>";
+                                        echo "<td>" . $row['User_Effdt'] . "</td>";
                                         echo "<td>";
                                             echo '<a href="read.php?id='. $row['Id'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
                                             echo '<a href="update.php?id='. $row['Id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                             echo '<a href="terminate.php?id='. $row['Id'] .'" class="mr-3" title="Terminate Record" data-toggle="tooltip"><span class="fa fa-archive"></span></a>';
-                                            echo '<a href="delete.php?id='. $row['Id'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                           
                                         echo "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            
-                            echo "</table>";
+                            echo "</table></center>";
                             // Free result set
                             mysqli_free_result($result);
                         } else{

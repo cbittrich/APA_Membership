@@ -110,11 +110,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
 
 <!DOCTYPE html>
-<link rel="stylesheet" href="MembershipRoster.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <title>APA - Register New User</title>
 
- 
-<!--<div class="left"> <img src="APA_logo.png" ></img></div>-->
 	<div class="topnav">
 	<?php if (empty($_SESSION["IsAdmin"])) {
 echo "";
@@ -123,12 +121,79 @@ echo "";
 echo "<a class=active href=WelcomeAdmin.php>Admin</a>";
 }; ?>
 	<a href="Welcome.php">Home</a>
-	<!--echo '<a href="read.php?id='. $row['Id'] .'" class="mr-3" title="Profile" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';-->
-<a href="Profile.php?id=<?php echo htmlspecialchars($_SESSION["id"]); ?>" class="mr-3" title="Profile" data-toggle="tooltip">Profile</a>
+	<a href="Profile.php?id=<?php echo htmlspecialchars($_SESSION["id"]); ?>" class="mr-3" title="Profile" data-toggle="tooltip">Profile</a>
 	<a href="Contact.php">Contact</a>
 	<a href="logout.php">Sign Out</a>
 	
 	</div>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# " class=" js" style="height: 100%; font-size: 16px;"><head>
+	<link rel="stylesheet" href="MembershipRoster.css"/>
+    <meta charset="utf-8">
+<noscript><style>form.antibot * :not(.antibot-message) { display: none !important; }</style>
+</noscript><meta name="Generator" content="Drupal 9 (https://www.drupal.org)">
+<meta name="MobileOptimized" content="width">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style data-tippy-stylesheet="">.tippy-box[data-animation=fade][data-state=hidden]{opacity:0}[data-tippy-root]{max-width:calc(100vw - 10px)}.tippy-box{position:relative;background-color:#333;color:#fff;border-radius:4px;font-size:14px;line-height:1.4;outline:0;transition-property:transform,visibility,opacity}.tippy-box[data-placement^=top]>.tippy-arrow{bottom:0}.tippy-box[data-placement^=top]>.tippy-arrow:before{bottom:-7px;left:0;border-width:8px 8px 0;border-top-color:initial;transform-origin:center top}.tippy-box[data-placement^=bottom]>.tippy-arrow{top:0}.tippy-box[data-placement^=bottom]>.tippy-arrow:before{top:-7px;left:0;border-width:0 8px 8px;border-bottom-color:initial;transform-origin:center bottom}.tippy-box[data-placement^=left]>.tippy-arrow{right:0}.tippy-box[data-placement^=left]>.tippy-arrow:before{border-width:8px 0 8px 8px;border-left-color:initial;right:-7px;transform-origin:center left}.tippy-box[data-placement^=right]>.tippy-arrow{left:0}.tippy-box[data-placement^=right]>.tippy-arrow:before{left:-7px;border-width:8px 8px 8px 0;border-right-color:initial;transform-origin:center right}.tippy-box[data-inertia][data-state=visible]{transition-timing-function:cubic-bezier(.54,1.5,.38,1.11)}.tippy-arrow{width:16px;height:16px;color:#333}.tippy-arrow:before{content:"";position:absolute;border-color:transparent;border-style:solid}.tippy-content{position:relative;padding:5px 9px;z-index:1}</style><style media="">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/mobile_portrait_1x/public/2021-02/Copy%20of%20background.png?itok=0-K2ft4J') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_portrait_1x/public/2021-02/Copy%20of%20background.png?itok=0-K2ft4J', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_portrait_1x/public/2021-02/Copy%20of%20background.png?itok=0-K2ft4J', sizingMethod='scale');}</style>
+<style media=" and (-webkit-min-device-pixel-ratio: 2),  and (min-resolution: 192dpi)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/mobile_portrait_2x/public/2021-02/Copy%20of%20background.png?itok=3Dgtps4G') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_portrait_2x/public/2021-02/Copy%20of%20background.png?itok=3Dgtps4G', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_portrait_2x/public/2021-02/Copy%20of%20background.png?itok=3Dgtps4G', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 480px)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/mobile_landscape_1x/public/2021-02/Copy%20of%20background.png?itok=HVLqtBZF') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_landscape_1x/public/2021-02/Copy%20of%20background.png?itok=HVLqtBZF', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_landscape_1x/public/2021-02/Copy%20of%20background.png?itok=HVLqtBZF', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 480px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 480px) and (min-resolution: 192dpi)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/mobile_landscape_2x/public/2021-02/Copy%20of%20background.png?itok=UCS7GvFb') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_landscape_2x/public/2021-02/Copy%20of%20background.png?itok=UCS7GvFb', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_landscape_2x/public/2021-02/Copy%20of%20background.png?itok=UCS7GvFb', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 768px)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/tablet_portrait_1x/public/2021-02/Copy%20of%20background.png?itok=2uQJ2S6l') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_portrait_1x/public/2021-02/Copy%20of%20background.png?itok=2uQJ2S6l', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_portrait_1x/public/2021-02/Copy%20of%20background.png?itok=2uQJ2S6l', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 768px) and (min-resolution: 192dpi)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/tablet_portrait_2x/public/2021-02/Copy%20of%20background.png?itok=B6rQFFMV') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_portrait_2x/public/2021-02/Copy%20of%20background.png?itok=B6rQFFMV', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_portrait_2x/public/2021-02/Copy%20of%20background.png?itok=B6rQFFMV', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 992px)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/tablet_landscape_1x/public/2021-02/Copy%20of%20background.png?itok=nuQPnCeF') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_landscape_1x/public/2021-02/Copy%20of%20background.png?itok=nuQPnCeF', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_landscape_1x/public/2021-02/Copy%20of%20background.png?itok=nuQPnCeF', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 992px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 992px) and (min-resolution: 192dpi)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/tablet_landscape_2x/public/2021-02/Copy%20of%20background.png?itok=9neKEwSx') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_landscape_2x/public/2021-02/Copy%20of%20background.png?itok=9neKEwSx', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_landscape_2x/public/2021-02/Copy%20of%20background.png?itok=9neKEwSx', sizingMethod='scale');}</style>
+<style media="all and (min-width: 1600px)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/2021-02/Copy%20of%20background.png') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/2021-02/Copy%20of%20background.png', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/2021-02/Copy%20of%20background.png', sizingMethod='scale');}</style>
+<style media="all and (min-width: 1600px) and (-webkit-min-device-pixel-ratio: 2), all and (min-width: 1600px) and (min-resolution: 192dpi)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/2021-02/Copy%20of%20background.png') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/2021-02/Copy%20of%20background.png', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/2021-02/Copy%20of%20background.png', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 1200x)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/laptop_1x/public/2021-02/Copy%20of%20background.png?itok=UVxo_lZd') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/laptop_1x/public/2021-02/Copy%20of%20background.png?itok=UVxo_lZd', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/laptop_1x/public/2021-02/Copy%20of%20background.png?itok=UVxo_lZd', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 1200x) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 1200x) and (min-resolution: 192dpi)">.block-block-content90c19b42-56ba-42de-b745-8de178042c97 {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/laptop_2x/public/2021-02/Copy%20of%20background.png?itok=Qy_2DU48') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/laptop_2x/public/2021-02/Copy%20of%20background.png?itok=Qy_2DU48', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/laptop_2x/public/2021-02/Copy%20of%20background.png?itok=Qy_2DU48', sizingMethod='scale');}</style>
+<style media="">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/mobile_portrait_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=wUQWPXNZ') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_portrait_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=wUQWPXNZ', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_portrait_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=wUQWPXNZ', sizingMethod='scale');}</style>
+<style media=" and (-webkit-min-device-pixel-ratio: 2),  and (min-resolution: 192dpi)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/mobile_portrait_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=ZickgwaB') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_portrait_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=ZickgwaB', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_portrait_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=ZickgwaB', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 480px)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/mobile_landscape_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=8c0qSY68') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_landscape_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=8c0qSY68', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_landscape_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=8c0qSY68', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 480px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 480px) and (min-resolution: 192dpi)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/mobile_landscape_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=NdxBp2AW') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_landscape_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=NdxBp2AW', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/mobile_landscape_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=NdxBp2AW', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 768px)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/tablet_portrait_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=ssmg7OjW') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_portrait_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=ssmg7OjW', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_portrait_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=ssmg7OjW', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 768px) and (min-resolution: 192dpi)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/tablet_portrait_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=4eY9uyvh') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_portrait_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=4eY9uyvh', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_portrait_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=4eY9uyvh', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 992px)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/tablet_landscape_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=W8UeWRpk') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_landscape_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=W8UeWRpk', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_landscape_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=W8UeWRpk', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 992px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 992px) and (min-resolution: 192dpi)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/tablet_landscape_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=rAwFa5ix') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_landscape_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=rAwFa5ix', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/tablet_landscape_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=rAwFa5ix', sizingMethod='scale');}</style>
+<style media="all and (min-width: 1600px)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/2021-02/Digital%20Inclusion%20Matters.jpeg') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/2021-02/Digital%20Inclusion%20Matters.jpeg', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/2021-02/Digital%20Inclusion%20Matters.jpeg', sizingMethod='scale');}</style>
+<style media="all and (min-width: 1600px) and (-webkit-min-device-pixel-ratio: 2), all and (min-width: 1600px) and (min-resolution: 192dpi)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/2021-02/Digital%20Inclusion%20Matters.jpeg') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/2021-02/Digital%20Inclusion%20Matters.jpeg', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/2021-02/Digital%20Inclusion%20Matters.jpeg', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 1200x)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/laptop_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=Ys8cR-Zp') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/laptop_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=Ys8cR-Zp', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/laptop_1x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=Ys8cR-Zp', sizingMethod='scale');}</style>
+<style media="screen and (min-width: 1200x) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 1200x) and (min-resolution: 192dpi)">.block-block-content78882128-87fc-4412-846a-0e0462fae92e {background-color: #333333 !important;background-image:  url('/sites/default/files/styles/laptop_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=-TsOAw_G') !important;background-repeat: no-repeat !important;background-position: center 40% !important;z-index: auto;background-size: cover !important;-webkit-background-size: cover !important;-moz-background-size: cover !important;-o-background-size: cover !important;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/laptop_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=-TsOAw_G', sizingMethod='scale');-ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/sites/default/files/styles/laptop_2x/public/2021-02/Digital%20Inclusion%20Matters.jpeg?itok=-TsOAw_G', sizingMethod='scale');}</style>
+<link rel="shortcut icon" href="/themes/custom/rtf/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_d-1tZHzkr7xOZPiR4KtU_mnkuiKCGYEV9ab8FK2md9k.css">
+<link rel="stylesheet" media="all" href="/webform/css/newsletter_webform?r3gnm2">
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_1WUJ2M294DQx5H2eH7RlQLSlzPdKefrhLvm74Ac_IHo.css">
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_uMLXRqj8oiKfaVlMJHgY0GlWN6CE1J9Bl8aaz2eEMqw.css">
+<link rel="stylesheet" media="all" href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&amp;display=swap">
+<link rel="stylesheet" media="all" href="//fonts.googleapis.com/css?family=Merriweather:400,700,900&amp;display=swap">
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_5dMDjxM_GhJLXJmCzYesb9Fdh4E9nPO-kgXUOcbjUic.css">
+
+    
+  <script data-dapp-detection="">!function(){let e=!1;function n(){if(!e){const n=document.createElement("meta");n.name="dapp-detected",document.head.appendChild(n),e=!0}}if(window.hasOwnProperty("ethereum")){if(window.__disableDappDetectionInsertion=!0,void 0===window.ethereum)return;n()}else{var t=window.ethereum;Object.defineProperty(window,"ethereum",{configurable:!0,enumerable:!1,set:function(e){window.__disableDappDetectionInsertion||n(),t=e},get:function(){if(!window.__disableDappDetectionInsertion){const e=arguments.callee;e&&e.caller&&e.caller.toString&&-1!==e.caller.toString().indexOf("getOwnPropertyNames")||n()}return t}})}}();</script><link type="text/css" rel="stylesheet" charset="UTF-8" href="https://translate.googleapis.com/translate_static/css/translateelement.css"><script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/_/translate_http/_/js/k=translate_http.tr.en_US.5ry4TwO4tFM.O/am=AQ/d=1/exm=el_conf/ed=1/rs=AN8SPfoLubijnObGZYRJqTH9fQ8LHAJBiA/m=el_main"></script><style type="text/css">.fl-progEnhance-basic, .fl-ProgEnhance-basic { display: none; } .fl-progEnhance-enhanced, .fl-ProgEnhance-enhanced { display: block; }</style></head>
+
+
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .wrapper{
+            width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+
+<link rel="stylesheet" href="MembershipRoster.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .wrapper{
+            width: 600px;
+            margin: 0 auto;
+
+        }
+    </style>
+ 
+<!--<div class="left"> <img src="APA_logo.png" ></img></div>-->
+
 	    <script data-dapp-detection="">!function(){let e=!1;function n(){if(!e){const n=document.createElement("meta");n.name="dapp-detected",document.head.appendChild(n),e=!0}}if(window.hasOwnProperty("ethereum")){if(window.__disableDappDetectionInsertion=!0,void 0===window.ethereum)return;n()}else{var t=window.ethereum;Object.defineProperty(window,"ethereum",{configurable:!0,enumerable:!1,set:function(e){window.__disableDappDetectionInsertion||n(),t=e},get:function(){if(!window.__disableDappDetectionInsertion){const e=arguments.callee;e&&e.caller&&e.caller.toString&&-1!==e.caller.toString().indexOf("getOwnPropertyNames")||n()}return t}})}}();</script><link type="text/css" rel="stylesheet" charset="UTF-8" href="https://translate.googleapis.com/translate_static/css/translateelement.css"><script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/_/translate_http/_/js/k=translate_http.tr.en_US.5ry4TwO4tFM.O/am=AQ/d=1/exm=el_conf/ed=1/rs=AN8SPfoLubijnObGZYRJqTH9fQ8LHAJBiA/m=el_main"></script><style type="text/css">.fl-progEnhance-basic, .fl-ProgEnhance-basic { display: none; } .fl-progEnhance-enhanced, .fl-ProgEnhance-enhanced { display: block; }</style></head>
   <body class="path-frontpage fl-theme-prefsEditor-default" style="position: relative; min-height: 100%; top: 0px; line-height: 1.75;">
        <!-- <a href="#main-content" class="visually-hidden focusable skip-link">-->
@@ -377,16 +442,17 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 
 
 	
+
+
+  </div>
+
+  </div>
+
+  </div>
+
 <center>
-
-  </div>
-
-  </div>
-
-  </div>
-</head>
+  </head>
 <body>
-<center>
 <br>
 <table border="0" cellpadding="1">
 <tr>
@@ -394,7 +460,7 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 	
 	
 	
- <!--<td><img src="{{Profile.ImageSrc}}" class="img-circle" style="width:60px;height:60px;"></img></td>-->
+
  <td>Welcome, <strong><?php echo htmlspecialchars($_SESSION["firstname"]); ?> <?php echo htmlspecialchars($_SESSION["lastname"]); ?></strong>
 <br>Your username is: <?php echo htmlspecialchars($_SESSION["username"]); ?>
 </td>
@@ -406,11 +472,14 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 
   </div>
 
-  </div>	
-
+  </div>
+     <center>
+	 <br>
+	 <br>
     <div class="wrapper">
-       <tr><td> <h2>Create New User Login</h2></td></tr>
-       <tr><td>   <p>Please fill this form to create an account.</p></td></tr>
+       <h2>Create New User Login:</h2>
+     <p>Please fill this form to create an account.</p>
+	   		<table style="width:auto" class="center">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <tr><td>  <div class="form-group">
                 <label>Username</label>
@@ -430,10 +499,12 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
            <tr><td>   <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-				<a href="WelcomeAdmin.php"class="btn btn-secondary ml-2"> <input type="button" value="Cancel" /></a>
+				<a class="btn btn-secondary ml-2" href="WelcomeAdmin.php">Cancel</a>
 				</td></tr>
             </div>
         </form>
+		</table>
+		</center>
     </div>    
 </body>
 </html>

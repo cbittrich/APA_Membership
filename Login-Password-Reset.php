@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: Welcome.php");
+    header("location: reset-password.php");
     exit;
 }
  
@@ -12,8 +12,8 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$username = $password = $IsAdmin = $firstname = $lastname = "";
-$username_err = $password_err = $login_err = "";
+$username = $email = $IsAdmin = $firstname = $lastname = "";
+$username_err = $email_err = $login_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -25,18 +25,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username = trim($_POST["username"]);
     }
     
-    // Check if password is empty
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter your password.";
+    // Check if email is empty
+    if(empty(trim($_POST["email"]))){
+        $email_err = "Please enter your email.";
     } else{
-        $password = trim($_POST["password"]);
+        $email = trim($_POST["email"]);
     }
     
     // Validate credentials
-    if(empty($username_err) && empty($password_err)){
+    if(empty($username_err) && empty($email_err)){
         // Prepare a select statement
-        $sql = "SELECT p.id, u.User_Name_First, u.User_Name_Last,a.User_admin_effdt, p.user_id, p.user_password FROM User_Password p left join User u on u.id = p.id 
-left join User_Admin a on p.id = a.id
+        $sql = "SELECT p.id, u.User_Name_First, u.User_Name_Last,a.email, p.user_id, p.user_password FROM User_Password p left join User u on u.id = p.id 
+left join Password_Reset a on p.id = a.id
 
 WHERE p.user_id = ?";
 		
@@ -55,10 +55,12 @@ WHERE p.user_id = ?";
                 // Check if username exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $firstname, $lastname, $IsAdmin, $username, $hashed_password);
+                    mysqli_stmt_bind_result($stmt, $id, $firstname, $lastname, $memail, $musername, $hashed_password);
                     if(mysqli_stmt_fetch($stmt)){
-                        if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
+                        //if(password_verify($password, $hashed_password)){
+                          if($email == $memail and $username == $musername){
+						  
+						  // Password is correct, so start a new session
                             session_start();
                             
                             // Store data in session variables
@@ -69,15 +71,17 @@ WHERE p.user_id = ?";
                             $_SESSION["lastname"] = $lastname;                            
                             $_SESSION["IsAdmin"] = $IsAdmin; 
                             // Redirect user to welcome page
-                            header("location: Welcome.php");
+                            header("location: reset-password.php");
                         } else{
-                            // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password.";
+                            
+							print_r(array_keys($stmt));
+							// email is not valid, display a generic error message
+                            $login_err = "Invalid username or email.";
                         }
                     }
                 } else{
                     // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password.";
+                    $login_err = "Invalid username or email.";
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -97,7 +101,7 @@ WHERE p.user_id = ?";
 <head>
 <meta charset="UTF-8">
 
-    <title>APA - Login</title>
+    <title>APA - Password Reset</title>
 <html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# " class=" js" style="height: 100%; font-size: 16px;"><head>
 	<link rel="stylesheet" href="MembershipRoster.css"/>
     <meta charset="utf-8">
@@ -446,12 +450,13 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 </head>
 
 <body>
+  
      <center>
 
     <div class="wrapper">
 		<br>
         <br>
-        <h2>Login:</h2>
+		<h2>Password Reset:</h2>
         <p>Please enter login credentials.</p>
 
         <?php 
@@ -467,15 +472,14 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>   </td></tr> 
           <tr><td>    <div class="form-group">
-              <label>Password:</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+              <label>Email:</label>
+                <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>">
+                <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div></td></tr>
             <div class="form-group">
-             <tr><td>   <input type="submit" class="btn btn-primary" value="Login"></td></tr>
-            </div>
-            <tr><td><p>Forgot Password? <a href="Login-Password-Reset.php">Reset Password</a>.</p></td></tr>
-            <tr><td><p>Don't have an account? <a href="Register.php">Sign up now</a>.</p></td></tr>
+             <tr><td>   <input type="submit" class="btn btn-primary" value="Reset Password">
+			 <a href="Login.php" class="btn btn-secondary ml-2">Cancel</a>
+            </div></td></tr> 
 			</form> </table></center> </header>
     </div>
 </body>

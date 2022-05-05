@@ -117,12 +117,10 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 ?>
  
 <!DOCTYPE html>
-
-<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Record</title>
+    <title>APA - Terminate Employee</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -130,7 +128,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             margin: 0 auto;
         }
     </style>
-</head> -->
+</head> 
 <link rel="stylesheet" href="MembershipRoster.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

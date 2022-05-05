@@ -63,11 +63,11 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 }
 ?>
 
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Record</title>
+    <title>APA - View Membership Status</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -75,7 +75,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             margin: 0 auto;
         }
     </style>
-</head> -->
+</head> 
 <link rel="stylesheet" href="MembershipRoster.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -381,23 +381,19 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 </head>
 
 <body>
+<center>
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="mt-5 mb-3">View membership status: <?php echo $row["User_Name_First"]; ?>  <?php echo $row["User_Name_Last"]; ?></h1>
+                    <h2 class="mt-5 mb-3">View Membership Status: <?php echo $row["User_Name_First"]; ?>  <?php echo $row["User_Name_Last"]; ?></h2>
                     <div class="form-group">
 					
-					<?php echo '<table class="table table-bordered table-striped">';?>
-                                <?php echo "<thead>";?>
-                                    <?php echo "<tr>";?>
+					<?php echo '<table style="width:auto" class="table table-bordered table-striped center">';?>
+
                                         <?php echo "<tr><th>Membership Status:</th><td>";?><?php echo $row["User_Status_Current"]; ?>
                                         <?php echo "</td></tr><tr><th>Effective Date:</th><td>";?><?php echo $row["User_Status_Effdt"];?> 
-								<?php echo "</td></tr>";?>
-                                <?php echo "</thead>";?>
-                                <?php echo "<tbody>";?>
-								<?php echo "</tbody>";?>                            
-                            <?php echo "</table>";?>
+							</td></tr></table>
                        
                     </div>
                     <p><a href="Welcome.php" class="btn btn-primary">Back</a></p>
@@ -405,5 +401,6 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
             </div>        
         </div>
     </div>
+	</center>
 </body>
 </html>

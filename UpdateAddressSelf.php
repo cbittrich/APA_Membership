@@ -14,8 +14,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$User_Status_Current = "";
-$User_Status_Current_err = "";
+$Address_Street1 = $Address_Street2 = $Address_City = $Address_Zip = $Address_State = $Address_Email = $Address_Phone ="";
+$Address_Street1_err = $Address_Street2_err = $Address_City_err = $Address_State_err = $Address_Zip_err = $Address_Email_err = $Address_Phone_err = "";
 // Processing form data when form is submitted
 if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Get hidden input value
@@ -23,34 +23,96 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     
 
     
-    // Validate User_Status_Current User_Status_Current
-    $input_User_Status_Current = trim($_POST["User_Status_Current"]);
-    if(empty($input_User_Status_Current)){
-        $User_Status_Current_err = "Please enter an User_Status_Current.";     
+    // Validate Terminationdate Terminationdate
+    $input_Address_Street1 = trim($_POST["Address_Street1"]);
+    if(empty($input_Address_Street1)){
+        $Address_Street1_err = "Please enter an Address_Street1.";     
     } else{
-        $User_Status_Current = $input_User_Status_Current;
+        $Address_Street1 = $input_Address_Street1;
     }
-    
+        $input_Address_Street2 = trim($_POST["Address_Street2"]);
 
-    
+        $Address_Street2 = $input_Address_Street2;
+
+        $input_Address_City = trim($_POST["Address_City"]);
+    if(empty($input_Address_City)){
+        $Address_City_err = "Please enter an Address_City.";     
+    } else{
+        $Address_City = $input_Address_City;
+    }
+	  
+        $input_Address_State = trim($_POST["Address_State"]);
+    if(empty($input_Address_State)){
+        $Address_State_err = "Please enter an Address_State.";     
+    } else{
+        $Address_State = $input_Address_State;
+    }
+	    $input_Address_Zip = trim($_POST["Address_Zip"]);
+    if(empty($input_Address_Zip)){
+        $Address_Zip_err = "Please enter an Address_Zip.";     
+    } else{
+        $Address_Zip = $input_Address_Zip;
+    }
+        $input_Address_Email = trim($_POST["Address_Email"]);
+    if(empty($input_Address_Email)){
+        $Address_Email_err = "Please enter an Address_Email.";     
+    } else{
+        $Address_Email = $input_Address_Email;
+    } 
+	        $input_Address_Phone = trim($_POST["Address_Phone"]);
+    if(empty($input_Address_Phone)){
+        $Address_Phone_err = "";     
+		$Address_Phone_err = "Please enter an Address_Phone.";     
+
+    } else{
+        $Address_Phone = $input_Address_Phone;
+    } 
+	//$input_Address_Phone = trim($_POST["Address_Phone"]);
+	//$User_Address_Phone = $input_Address_Phone;
     // Check input errors before inserting in database
-    if(empty($User_Status_Current_err)){
+    if(empty($Address_Street1_err) && empty($Address_Street2_err) && empty($Address_City_err) && empty($Address_Zip_err) && empty($Address_State_err) && empty($Address_Email_err)){
         // Prepare an update statement
-        $sql = "UPDATE User_Status SET User_status_Effdt=now(), User_status_Current=? WHERE id=?";
-         
+        //$sql = "UPDATE User SET User_Effdt=now(), Address_Street1=?,Address_Street2=? WHERE id=?";
+        $sql = "UPDATE Address SET 
+		Address_effdt=now(), 
+		Address_street1=?,	
+		Address_street2=?,	
+		Address_city=?,		
+		Address_state=?,
+		Address_zip=?,		
+		Address_email=?,	
+		Address_phone=?	
+		WHERE id=?";
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "si",  $param_User_Status_Current, $param_id);
-            
+            //mysqli_stmt_bind_param($stmt, "ssi",  $param_Address_Street1, $param_Address_Street2, $param_id);
+            mysqli_stmt_bind_param($stmt, "sssssssi", 
+			$param_Address_Street1,
+			$param_Address_Street2,
+			$param_Address_City,
+			$param_Address_State,
+			$param_Address_Zip,
+			$param_Address_Email,
+			$param_Address_Phone,
+			$param_id);
             // Set parameters
-            $param_User_Status_Current = $User_Status_Current;
-
+            //$param_Address_Street1 = $Address_Street1;
+            //$param_Address_Street2 = $Address_Street2;
+            //$param_id = $id;
+			
+			$param_Address_Street1 = $Address_Street1;
+			$param_Address_Street2 = $Address_Street2;
+			$param_Address_City = $Address_City;
+			$param_Address_State = $Address_State;
+			$param_Address_Zip = $Address_Zip;
+			$param_Address_Email = $Address_Email;
+			$param_Address_Phone = $Address_Phone;
             $param_id = $id;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Records updated successfully. Redirect to landing page
-                header("location: ViewMembershipRoster.php");
+                header("location: Welcome.php");
                 exit();
             } else{
                 echo "1st Oops! Something went wrong. Please try again later.";
@@ -71,7 +133,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         $id =  trim($_GET["id"]);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM User_Status_Current WHERE id = ?";
+        $sql = "SELECT * FROM MembershipAddress WHERE id = ?";
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -89,9 +151,15 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                     
                     // Retrieve individual field value
-                    $firstname = $row["User_Name_First"];
-					$lastname = $row["User_Name_Last"];
-                    $User_Status_Current = $row["User_Status_Current"];
+					$User_Name_First=$row["User_Name_First"];
+					$User_Name_Last=$row["User_Name_Last"];
+				    $Address_Street1=$row["Address_street1"];
+					$Address_Street2=$row["Address_street2"];
+					$Address_City=$row["Address_city"];
+					$Address_State=$row["Address_state"];
+					$Address_Zip=$row["Address_zip"];
+					$Address_Email=$row["Address_email"];
+					$Address_Phone=$row["Address_phone"];
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
@@ -117,12 +185,10 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 ?>
  
 <!DOCTYPE html>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>APA - Update Membership Status </title>
+    <title>APA - Update Address</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -437,7 +503,7 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>APA - Update Membership Status</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -447,26 +513,110 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
     </style>
 </head>
 <body>
+													
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5">Update Membership Status: <?php echo $firstname; ?> <?php echo $lastname; ?>?</h2>
-                    <p>Please select the membership status value and submit to update the membership record.</p>
+                    <h2 class="mt-5">Update Address: <?php echo $User_Name_First; ?>  <?php echo $User_Name_Last; ?></h2>
+                    <p>Please complete the required address information for the user.</p>
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
-                            <label>Current Membership Status:</label>
-                            <select name="User_Status_Current" class="form-control <?php echo (!empty($User_Status_Current_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Status_Current; ?>">
-                            <option value="New-Prospect"<?php if ($User_status_Current == 'New-Prospect') { echo 'selected'; } ?>>New-Prospect</option>
-								<option value="Considering"<?php if ($User_status_Current == 'Considering') { echo 'selected'; } ?>>Considering</option>
-								<option value="Declined"<?php if ($User_status_Current == 'Declined') { echo 'selected'; } ?>>Declined</option>
-								<option value="Member"<?php if ($User_status_Current == 'Member') { echo 'selected'; } ?>>Member</option>
-								<option value="Withdrawn"<?php if ($User_status_Current == 'Withdrawn') { echo 'selected'; } ?>>Withdrawn</option>
+                            <label>Street Address:</label>
+                            <input type="Text" name="Address_Street1" placeholder="352 Lafayette St." required class="form-control <?php echo (!empty($Address_Street1_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $Address_Street1; ?>">
+                            <span class="invalid-feedback"><?php echo $Address_Street1_err;?></span>
+                        </div>
+						<div class="form-group">
+                            <label>Street Address2:</label>
+                            <input type="Text" name="Address_Street2" placeholder="Stanley Building" class="form-control <?php echo (!empty($Address_Street2_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $Address_Street2; ?>">
+                            <span class="invalid-feedback"><?php echo $Address_Street2_err;?></span>
+                        </div>
+						<div class="form-group">
+                            <label>City:</label>
+                            <input type="Text" name="Address_City" placeholder="Salem"required class="form-control <?php echo (!empty($Address_City_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $Address_City; ?>">
+                            <span class="invalid-feedback"><?php echo $Address_City_err;?></span>
+                        </div>
+						<div class="form-group">
+                            <label>State:</label>
+
+                            <select name="Address_State" required class="form-control" <?php echo (!empty($Address_State_err)) ? 'is-invalid' : ''; ?>value="<?php echo $Address_State; ?>" >
+								<option value = "" disabled selected>Select your State</option>
+								<option value = "AZ"<?php if ($Address_State == 'AZ') { echo 'selected'; } ?>>AZ</option>
+								<option value = "AR"<?php if ($Address_State == 'AR') { echo 'selected'; } ?>>AR</option>
+								<option value = "CA"<?php if ($Address_State == 'CA') { echo 'selected'; } ?>>CA</option>
+								<option value = "CZ"<?php if ($Address_State == 'CZ') { echo 'selected'; } ?>>CZ</option>
+								<option value = "CO"<?php if ($Address_State == 'CO') { echo 'selected'; } ?>>CO</option>
+								<option value = "CT"<?php if ($Address_State == 'CT') { echo 'selected'; } ?>>CT</option>
+								<option value = "DE"<?php if ($Address_State == 'DE') { echo 'selected'; } ?>>DE</option>
+								<option value = "DC"<?php if ($Address_State == 'DC') { echo 'selected'; } ?>>DC</option>
+								<option value = "FL"<?php if ($Address_State == 'FL') { echo 'selected'; } ?>>FL</option>
+								<option value = "GA"<?php if ($Address_State == 'GA') { echo 'selected'; } ?>>GA</option>
+								<option value = "GU"<?php if ($Address_State == 'GU') { echo 'selected'; } ?>>GU</option>
+								<option value = "HI"<?php if ($Address_State == 'HI') { echo 'selected'; } ?>>HI</option>
+								<option value = "ID"<?php if ($Address_State == 'ID') { echo 'selected'; } ?>>ID</option>
+								<option value = "IL"<?php if ($Address_State == 'IL') { echo 'selected'; } ?>>IL</option>
+								<option value = "IN"<?php if ($Address_State == 'IN') { echo 'selected'; } ?>>IN</option>
+								<option value = "IA"<?php if ($Address_State == 'IA') { echo 'selected'; } ?>>IA</option>
+								<option value = "KS"<?php if ($Address_State == 'KS') { echo 'selected'; } ?>>KS</option>
+								<option value = "KY"<?php if ($Address_State == 'KY') { echo 'selected'; } ?>>KY</option>
+								<option value = "LA"<?php if ($Address_State == 'LA') { echo 'selected'; } ?>>LA</option>
+								<option value = "ME"<?php if ($Address_State == 'ME') { echo 'selected'; } ?>>ME</option>
+								<option value = "MD"<?php if ($Address_State == 'MD') { echo 'selected'; } ?>>MD</option>
+								<option value = "MA"<?php if ($Address_State == 'MA') { echo 'selected'; } ?>>MA</option>
+								<option value = "MI"<?php if ($Address_State == 'MI') { echo 'selected'; } ?>>MI</option>
+								<option value = "MN"<?php if ($Address_State == 'MN') { echo 'selected'; } ?>>MN</option>
+								<option value = "MS"<?php if ($Address_State == 'MS') { echo 'selected'; } ?>>MS</option>
+								<option value = "MO"<?php if ($Address_State == 'MO') { echo 'selected'; } ?>>MO</option>
+								<option value = "MT"<?php if ($Address_State == 'MT') { echo 'selected'; } ?>>MT</option>
+								<option value = "NE"<?php if ($Address_State == 'NE') { echo 'selected'; } ?>>NE</option>
+								<option value = "NV"<?php if ($Address_State == 'NV') { echo 'selected'; } ?>>NV</option>
+								<option value = "NH"<?php if ($Address_State == 'NH') { echo 'selected'; } ?>>NH</option>
+								<option value = "NJ"<?php if ($Address_State == 'NJ') { echo 'selected'; } ?>>NJ</option>
+								<option value = "NM"<?php if ($Address_State == 'NM') { echo 'selected'; } ?>>NM</option>
+								<option value = "NY"<?php if ($Address_State == 'NY') { echo 'selected'; } ?>>NY</option>
+								<option value = "NC"<?php if ($Address_State == 'NC') { echo 'selected'; } ?>>NC</option>
+								<option value = "ND"<?php if ($Address_State == 'ND') { echo 'selected'; } ?>>ND</option>
+								<option value = "OH"<?php if ($Address_State == 'OH') { echo 'selected'; } ?>>OH</option>
+								<option value = "OK"<?php if ($Address_State == 'OK') { echo 'selected'; } ?>>OK</option>
+								<option value = "OR"<?php if ($Address_State == 'OR') { echo 'selected'; } ?>>OR</option>
+								<option value = "PA"<?php if ($Address_State == 'PA') { echo 'selected'; } ?>>PA</option>
+								<option value = "PR"<?php if ($Address_State == 'PR') { echo 'selected'; } ?>>PR</option>
+								<option value = "RI"<?php if ($Address_State == 'RI') { echo 'selected'; } ?>>RI</option>
+								<option value = "SC"<?php if ($Address_State == 'SC') { echo 'selected'; } ?>>SC</option>
+								<option value = "SD"<?php if ($Address_State == 'SD') { echo 'selected'; } ?>>SD</option>
+								<option value = "TN"<?php if ($Address_State == 'TN') { echo 'selected'; } ?>>TN</option>
+								<option value = "TX"<?php if ($Address_State == 'TX') { echo 'selected'; } ?>>TX</option>
+								<option value = "UT"<?php if ($Address_State == 'UT') { echo 'selected'; } ?>>UT</option>
+								<option value = "VT"<?php if ($Address_State == 'VT') { echo 'selected'; } ?>>VT</option>
+								<option value = "VI"<?php if ($Address_State == 'VI') { echo 'selected'; } ?>>VI</option>
+								<option value = "VA"<?php if ($Address_State == 'VA') { echo 'selected'; } ?>>VA</option>
+								<option value = "WA"<?php if ($Address_State == 'WA') { echo 'selected'; } ?>>WA</option>
+								<option value = "WV"<?php if ($Address_State == 'WV') { echo 'selected'; } ?>>WV</option>
+								<option value = "WI"<?php if ($Address_State == 'WI') { echo 'selected'; } ?>>WI</option>
+								<option value = "WY"<?php if ($Address_State == 'WY') { echo 'selected'; } ?>>WY</option>
+
 								</select>
+							<span class="invalid-feedback"><?php echo $Address_State_err;?></span>
+                        </div>
+												<div class="form-group">
+                            <label>Zip:</label>
+                            <input type="Text" name="Address_Zip" inputmode="numeric" placeholder="01970-0000"pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" required class="form-control  <?php echo (!empty($Address_Zip_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $Address_Zip; ?>">
+                            <span class="invalid-feedback"><?php echo $Address_Zip_err;?></span>
+                        </div>
+						<div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="Address_Email" placeholder="testuser@salemstate.edu" required class="form-control  <?php echo (!empty($Address_Email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $Address_Email; ?>">
+                            <span class="invalid-feedback"><?php echo $Address_Email_err;?></span>
+                        </div>
+						
+						<div class="form-group">
+                            <label>Phone:</label>
+                            <input type="Tel" name="Address_Phone" placeholder="555-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required class="form-control"  value="<?php echo $Address_Phone; ?>">
+
                         </div>
                         <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                         <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="ViewMembershipRoster.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <a href="Welcome.php" class="btn btn-secondary ml-2">Cancel</a>
                     </form>
                 </div>
             </div>        

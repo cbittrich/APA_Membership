@@ -9,138 +9,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 ?>
 
-<?php
-// Include config file
-require_once "config.php";
- 
-// Define variables and initialize with empty values
-$User_Status_Current = "";
-$User_Status_Current_err = "";
-// Processing form data when form is submitted
-if(isset($_POST["id"]) && !empty($_POST["id"])){
-    // Get hidden input value
-    $id = $_POST["id"];
-    
-
-    
-    // Validate User_Status_Current User_Status_Current
-    $input_User_Status_Current = trim($_POST["User_Status_Current"]);
-    if(empty($input_User_Status_Current)){
-        $User_Status_Current_err = "Please enter an User_Status_Current.";     
-    } else{
-        $User_Status_Current = $input_User_Status_Current;
-    }
-    
-
-    
-    // Check input errors before inserting in database
-    if(empty($User_Status_Current_err)){
-        // Prepare an update statement
-        $sql = "UPDATE User_Status SET User_status_Effdt=now(), User_status_Current=? WHERE id=?";
-         
-        if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "si",  $param_User_Status_Current, $param_id);
-            
-            // Set parameters
-            $param_User_Status_Current = $User_Status_Current;
-
-            $param_id = $id;
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                // Records updated successfully. Redirect to landing page
-                header("location: ViewMembershipRoster.php");
-                exit();
-            } else{
-                echo "1st Oops! Something went wrong. Please try again later.";
-
-            }
-        }
-         
-        // Close statement
-        mysqli_stmt_close($stmt);
-    }
-    
-    // Close connection
-    mysqli_close($link);
-} else{
-    // Check existence of id parameter before processing further
-    if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-        // Get URL parameter
-        $id =  trim($_GET["id"]);
-        
-        // Prepare a select statement
-        $sql = "SELECT * FROM User_Status_Current WHERE id = ?";
-        if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "i", $param_id);
-            
-            // Set parameters
-            $param_id = $id;
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                $result = mysqli_stmt_get_result($stmt);
-    
-                if(mysqli_num_rows($result) == 1){
-                    /* Fetch result row as an associative array. Since the result set
-                    contains only one row, we don't need to use while loop */
-                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                    
-                    // Retrieve individual field value
-                    $firstname = $row["User_Name_First"];
-					$lastname = $row["User_Name_Last"];
-                    $User_Status_Current = $row["User_Status_Current"];
-                } else{
-                    // URL doesn't contain valid id. Redirect to error page
-                    header("location: error.php");
-                    exit();
-                }
-                
-            } else{
-                echo "2nd Oops! Something went wrong. Please try again later.";
-            }
-        }
-        
-        // Close statement
-        mysqli_stmt_close($stmt);
-        
-        // Close connection
-        mysqli_close($link);
-    }  else{
-        // URL doesn't contain id parameter. Redirect to error page
-        header("location: error.php");
-        exit();
-    }
-}
-?>
- 
 <!DOCTYPE html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>APA - Update Membership Status </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .wrapper{
-            width: 600px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
+    <title>APA - View Membership Address</title>
 <link rel="stylesheet" href="MembershipRoster.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .wrapper{
-            width: 600px;
-            margin: 0 auto;
-
-        }
-    </style>
  
 <!--<div class="left"> <img src="APA_logo.png" ></img></div>-->
 	<div class="topnav">
@@ -151,6 +24,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 echo "<a class=active href=WelcomeAdmin.php>Admin</a>";
 }; ?>
 	<a href="Welcome.php">Home</a>
+	<!--echo '<a href="read.php?id='. $row['Id'] .'" class="mr-3" title="Profile" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';-->
 <a href="Profile.php?id=<?php echo htmlspecialchars($_SESSION["id"]); ?>" class="mr-3" title="Profile" data-toggle="tooltip">Profile</a>
 	<a href="Contact.php">Contact</a>
 	<a href="logout.php">Sign Out</a>
@@ -411,7 +285,8 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
   </div>
 
   </div>
-
+</head>
+<body>
 <center>
 <br>
 <table border="0" cellpadding="1">
@@ -434,43 +309,80 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
 
   </div>	
 </head>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>APA - Update Membership Status</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .wrapper{
-            width: 600px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
 <body>
-    <div class="wrapper">
+    <!--<div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5">Update Membership Status: <?php echo $firstname; ?> <?php echo $lastname; ?>?</h2>
-                    <p>Please select the membership status value and submit to update the membership record.</p>
-                    <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
-                        <div class="form-group">
-                            <label>Current Membership Status:</label>
-                            <select name="User_Status_Current" class="form-control <?php echo (!empty($User_Status_Current_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $User_Status_Current; ?>">
-                            <option value="New-Prospect"<?php if ($User_status_Current == 'New-Prospect') { echo 'selected'; } ?>>New-Prospect</option>
-								<option value="Considering"<?php if ($User_status_Current == 'Considering') { echo 'selected'; } ?>>Considering</option>
-								<option value="Declined"<?php if ($User_status_Current == 'Declined') { echo 'selected'; } ?>>Declined</option>
-								<option value="Member"<?php if ($User_status_Current == 'Member') { echo 'selected'; } ?>>Member</option>
-								<option value="Withdrawn"<?php if ($User_status_Current == 'Withdrawn') { echo 'selected'; } ?>>Withdrawn</option>
-								</select>
-                        </div>
-                        <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="ViewMembershipRoster.php" class="btn btn-secondary ml-2">Cancel</a>
-                    </form>
-                </div>
-            </div>        
+				
+                    <div class="mt-5 mb-3 clearfix">
+                        <h2 class="pull-left">Employees Details</h2>
+                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
+                    </div>-->
+					
+                    <?php
+                    // Include config file
+                    require_once "config.php";
+                    
+                    // Attempt select query execution
+                    $sql = "SELECT  Id,
+									User_id,
+									User_Name_First, 
+									User_Name_Last, 
+									Address_effdt 
+							FROM `MembershipAddress`" ;
+                    if($result = mysqli_query($link, $sql)){
+                        if(mysqli_num_rows($result) > 0){
+                            
+							
+							
+							echo "<br><br><center><h1>Member Address List:</h1>";
+							echo '<table style="width:auto" class="table table-bordered table-striped center">';
+                                echo "<thead>";
+
+                                    echo "<tr>";
+                                        echo "<th>#:</th>";
+                                        echo "<th>Username:</th>";
+                                        echo "<th>First Name:</th>";
+                                        echo "<th>Last Name:</th>";
+                                       // echo "<th>User_Status_Current</th>";
+										echo "<th>Last Updated:</th>";
+										echo "<th>Action:</th>";
+                                    echo "</tr>";
+                                echo "</thead>";
+                                echo "<tbody>";
+                                while($row = mysqli_fetch_array($result)){
+                                    echo "<tr>";
+                                        echo "<td>" . $row['Id'] . "</td>";
+                                        echo "<td>" . $row['User_id'] . "</td>";
+                                        echo "<td>" . $row['User_Name_First'] . "</td>";
+                                        echo "<td>" . $row['User_Name_Last'] . "</td>";
+                                        //echo "<td>" . $row['User_Status_Current'] . "</td>";
+                                        echo "<td>" . $row['Address_effdt'] . "</td>";
+                                        echo "<td>";
+                                            echo '<a href="ViewAddress.php?id='. $row['Id'] .'" class="mr-3" title="View Member Address" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
+                                            echo '<a href="UpdateAddress.php?id='. $row['Id'] .'" class="mr-3" title="Update Member Address" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                        echo "</td>";
+                                    echo "</tr>";
+                                }
+                                echo "</tbody>";                            
+                            echo "</table></center>";
+                            // Free result set
+                            mysqli_free_result($result);
+                        } else{
+                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                        }
+                    } else{
+                        echo "Oops! Something went wrong. Please try again later.";
+                    }
+ 
+                    // Close connection
+                    mysqli_close($link);
+                    ?>
+            <!--    </div>
+            </div>       
         </div>
-    </div>
+    </div> -->
+
 </body>
 </html>

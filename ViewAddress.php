@@ -15,7 +15,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     require_once "config.php";
     
     // Prepare a select statement
-    $sql = "select User_Name_First, User_Name_Last, User_status_Current, User_status_Effdt FROM User_Status_Current  WHERE id = ?";
+    $sql = "Select * FROM MembershipAddress  WHERE id = ?";
     
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters
@@ -34,10 +34,16 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 
                 // Retrieve individual field value
-				$User_Name_First						= $row["User_Name_First"];
-				$User_Name_Last							= $row["User_Name_Last"];
-				$User_Status_Current					= $row["User_Status_Current"]; 
-				$User_Status_Effdt								= $row["User_Status_Effdt"]; 
+					$User_Name_First=$row["User_Name_First"];
+					$User_Name_Last=$row["User_Name_Last"];
+				    $Address_Street1=$row["Address_street1"];
+					$Address_Street2=$row["Address_street2"];
+					$Address_City=$row["Address_city"];
+					$Address_State=$row["Address_state"];
+					$Address_Zip=$row["Address_zip"];
+					$Address_Email=$row["Address_email"];
+					$Address_Phone=$row["Address_phone"];
+					$Address_Effdt=$row["Address_effdt"];
 
             } else{
 
@@ -63,11 +69,11 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 }
 ?>
 
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Record</title>
+    <title>APA - View Address</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -75,7 +81,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             margin: 0 auto;
         }
     </style>
-</head> -->
+</head>
 <link rel="stylesheet" href="MembershipRoster.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -380,29 +386,30 @@ a.gtflag:hover {background-image:url('/modules/contrib/gtranslate/gtranslate-fil
   </div>
 
   </div>	
-
-     <center>
-	 <br>
-	 <br>
+<center>
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="mt-5 mb-3">View Membership Status: <?php echo $row["User_Name_First"]; ?>  <?php echo $row["User_Name_Last"]; ?></h1>
+                    <h1 class="mt-5 mb-3">View Address: <?php echo $row["User_Name_First"]; ?>  <?php echo $row["User_Name_Last"]; ?></h1>
                     <div class="form-group">
 					
 					<table style="width:auto" class="table table-bordered table-striped center">
-                     
-                                        <?php echo "<tr><th>Membership Status:</th><td>";?><?php echo $row["User_Status_Current"]; ?>
-                                        <?php echo "</td></tr><tr><th>Effective Date:</th><td>";?><?php echo $row["User_Status_Effdt"];?> 
-								</td>
-								</tr>
-								</table>
+                                        <?php echo "<tr><th>Street Address1:</th><td>";?><?php echo $row["Address_street1"]; ?>
+                                        <?php echo "</td></tr><tr><th>Street Address2:</th><td>";?><?php echo $row["Address_street2"];?> 
+                                        <?php echo "</td></tr><tr><th>City:</th><td>";?><?php echo $row["Address_city"];?> 
+                                        <?php echo "</td></tr><tr><th>State:</th><td>";?><?php echo $row["Address_state"];?> 
+                                        <?php echo "</td></tr><tr><th>Zip:</th><td>";?><?php echo $row["Address_zip"];?> 
+                                        <?php echo "</td></tr><tr><th>Email:</th><td>";?><?php echo $row["Address_email"];?> 
+                                        <?php echo "</td></tr><tr><th>Phone:</th><td>";?><?php echo $row["Address_phone"];?> 
+                                        <?php echo "</td></tr><tr><th>Last updated:</th><td>";?><?php echo $row["Address_effdt"];?> 
+								</td></tr>                        
+                            </table>
                        
-                    </div>
-
-                    <p><a href="ViewMembershipRoster.php" class="btn btn-primary">Back</a></p>
-										</center>
+                   
+                    <p><a href="ViewMembershipAddress.php" class="btn btn-primary">Back</a></p>
+					 </div>
+					</center>
                 </div>
             </div>        
         </div>
